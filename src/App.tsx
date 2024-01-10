@@ -12,6 +12,7 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import {trigger} from 'react-native-haptic-feedback';
 
 import DiceOne from '../assets/images/One.png';
 import DiceTwo from '../assets/images/Two.png';
@@ -24,6 +25,12 @@ import DiceSix from '../assets/images/Six.png';
 type DiceProp = PropsWithChildren<{
   imageUrl:ImageSourcePropType
 }>;
+
+//optional conf for haptic feedback
+const options = {
+  enableVibrateFallback: true,
+  ignoreAndroidSystemSettings: false,
+};
 
 const Dice = ({imageUrl}:DiceProp):React.JSX.Element => {
   return (
@@ -38,6 +45,7 @@ function App(): React.JSX.Element {
   const diceArray = [DiceOne,DiceTwo,DiceThree,DiceFour,DiceFive,DiceSix];
 
   const handleTheRoll = () => {
+    trigger('impactMedium',options);
     let index = Math.floor(Math.random()* (diceArray.length))
     console.log(index);
     
